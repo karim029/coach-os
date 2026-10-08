@@ -4,8 +4,9 @@ import { AuthController } from './auth.controller.js';
 import { CoachModule } from '../coach/coach.module.js';
 import {JwtModule} from '@nestjs/jwt'
 import { ConfigModule, ConfigService } from '@nestjs/config';
+import { JwtStrategy } from './strategies/jwt.strategy.js';
 @Module({
-  providers: [AuthService],
+  providers: [AuthService, JwtStrategy],
   controllers: [AuthController],
   imports: [
     CoachModule,

@@ -1,9 +1,10 @@
-import { Body, Controller, HttpCode, HttpStatus, Post } from '@nestjs/common';
+import { Body, Controller, Get, HttpCode, HttpStatus, Post, Req, UseGuards } from '@nestjs/common';
 import { AuthService } from './auth.service.js';
 import { RegisterCoachDto } from '../coach/dto/RegisterCoachDto.js';
 import { CoachService } from '../coach/coach.service.js';
 import { SignInDto } from './dto/SignInDto.js';
-
+import { JwtAuthGuard } from './jwt-auth/jwt-auth.guard.js';
+import type { Request } from 'express';
 @Controller('auth')
 export class AuthController {
     constructor(
