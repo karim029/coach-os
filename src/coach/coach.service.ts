@@ -15,7 +15,6 @@ export class CoachService {
         }
             
         })
-        this.logger.log(existing)
         if(existing?.email === registerCoachDto.email){
             throw new ConflictException('Email already in use')
         }
