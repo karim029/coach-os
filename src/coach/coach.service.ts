@@ -10,15 +10,17 @@ export class CoachService {
 
     async registerCoach(registerCoachDto: RegisterCoachDto){
 
-        const existing = await this.prisma.coach.findFirst({where: {
-            OR: [{email: registerCoachDto.email}, {phone: registerCoachDto.phone}]
-        }
-            
-        })
-        if(existing?.email === registerCoachDto.email){
+       const normalizedEmail = registerCoachDto.email.toLowerCase().trim();
+       const normalizedPhone = registerCoachDto.phone.trim();
+
+       const existing = await this.prisma.coach.findFirst({
+        where: { OR: [{ email: normalizedEmail }, { phone: normalizedPhone }] }
+        })  
+        
+        if(existing?.email === normalizedEmail){
             throw new ConflictException('Email already in use')
         }
-        if(existing?.phone === registerCoachDto.phone){
+        if(existing?.phone === normalizedPhone){
             throw new ConflictException('Phone number already in use')
         }
 
@@ -26,9 +28,9 @@ export class CoachService {
 
         const newCoach = await this.prisma.coach.create({data:{
             name: registerCoachDto.name,
-            email: registerCoachDto.email.toLowerCase().trim(),
+            email: normalizedEmail,
             passwordHash: hashedPassword,
-            phone: registerCoachDto.phone.trim()
+            phone: normalizedPhone
         }})
 
         const {passwordHash, ...safeCoach} = newCoach
