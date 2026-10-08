@@ -32,9 +32,11 @@ export class CoachService {
         }})
 
         const {passwordHash, ...safeCoach} = newCoach
-        return safeCoach
-        
-        
+        return safeCoach   
+    }
+
+    async findCoachByEmail(email: string){
+        return this.prisma.coach.findUnique({where: {email: email.trim().toLowerCase()}})
     }
 
 
