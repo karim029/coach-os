@@ -1,0 +1,97 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum ClientStatus {
+  invited
+  active
+}
+
+enum SubscriptionStatus {
+  active
+  expired
+  cancelled
+}
+enum PaymentStatus {
+  pending
+  paid 
+  overdue
+}
+model Coach {
+  id String @id @default(uuid())
+  name String 
+  email String @unique
+  passwordHash String
+  phone String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  clients Client[]
+  packages Package[]
+}
+
+model Client {
+  id String @id @default(uuid())
+  name String
+  phone String
+  email String? @unique
+  passwordHash String?
+  status ClientStatus @default(invited)
+  coachId String
+  coach Coach @relation(fields: [coachId], references: [id])
+  subscriptions Subscription[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([coachId])
+}
+
+model Package {
+  id String @id @default(uuid())
+  coachId String
+  coach Coach @relation(fields: [coachId], references: [id])
+  name String
+  durationDays Int
+  price Decimal
+  description String
+  isActive Boolean
+  subscriptions Subscription[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([coachId])
+
+}
+
+model Subscription {
+  id String @id @default(uuid())
+  clientId String
+  client Client @relation(fields: [clientId], references: [id])
+  packageId String
+  package Package @relation(fields: [packageId], references: [id])
+  priceAtPurchase Decimal
+  currency String @default("EGP")
+  discountPercent Decimal?
+  startDate DateTime
+  endDate DateTime
+  status SubscriptionStatus @default(active)
+  paymentStatus PaymentStatus @default(pending)
+  reminderStage String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([clientId, status])
+
+}
