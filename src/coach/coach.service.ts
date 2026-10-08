@@ -26,9 +26,9 @@ export class CoachService {
 
         const newCoach = await this.prisma.coach.create({data:{
             name: registerCoachDto.name,
-            email: registerCoachDto.email,
+            email: registerCoachDto.email.toLowerCase().trim(),
             passwordHash: hashedPassword,
-            phone: registerCoachDto.phone
+            phone: registerCoachDto.phone.trim()
         }})
 
         const {passwordHash, ...safeCoach} = newCoach
