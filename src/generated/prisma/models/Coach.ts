@@ -217,17 +217,17 @@ export type CoachOrderByWithRelationInput = {
 export type CoachWhereUniqueInput = Prisma.AtLeast<{
   id?: string
   email?: string
+  phone?: string
   AND?: Prisma.CoachWhereInput | Prisma.CoachWhereInput[]
   OR?: Prisma.CoachWhereInput[]
   NOT?: Prisma.CoachWhereInput | Prisma.CoachWhereInput[]
   name?: Prisma.StringFilter<"Coach"> | string
   passwordHash?: Prisma.StringFilter<"Coach"> | string
-  phone?: Prisma.StringNullableFilter<"Coach"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Coach"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Coach"> | Date | string
   clients?: Prisma.ClientListRelationFilter
   packages?: Prisma.PackageListRelationFilter
-}, "id" | "email">
+}, "id" | "email" | "phone">
 
 export type CoachOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
