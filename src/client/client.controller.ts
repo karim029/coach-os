@@ -1,4 +1,22 @@
-import { Controller } from '@nestjs/common';
-
+import { Body, Controller, Post, Req, UnauthorizedException, UseGuards } from '@nestjs/common';
+import { ClientService } from './client.service.js';
+import { CreateClientDto } from './dto/create-client.dto.js';
+import { JwtAuthGuard } from '../auth/jwt-auth/jwt-auth.guard.js';
+import type { Request } from 'express'
 @Controller('client')
-export class ClientController {}
+export class ClientController {
+    constructor(private readonly clientService: ClientService){}
+
+    @Post()
+    @UseGuards(JwtAuthGuard)
+    async createClient(@Req() req: Request ,@Body() dto: CreateClientDto){
+        if(!req.user){
+            throw new UnauthorizedException('Not Authorized');
+        }
+        const coachId = req.user.id
+        return this.clientService.createClient(dto, coachId)
+    }
+
+
+
+}
