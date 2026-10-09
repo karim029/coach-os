@@ -5,9 +5,10 @@ import { PrismaModule } from './prisma/prisma.module.js';
 import { ConfigModule } from '@nestjs/config';
 import { CoachModule } from './coach/coach.module.js';
 import { AuthModule } from './auth/auth.module.js';
+import { ClientModule } from './client/client.module.js';
 
 @Module({
-  imports: [PrismaModule, ConfigModule.forRoot({isGlobal: true}), CoachModule, AuthModule],
+  imports: [PrismaModule, ConfigModule.forRoot({isGlobal: true}), CoachModule, AuthModule, ClientModule],
   controllers: [AppController],
   providers: [AppService],
 })
