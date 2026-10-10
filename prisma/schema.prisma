@@ -49,6 +49,7 @@ model Client {
   phone String
   email String? @unique
   passwordHash String?
+  activationToken String? @unique
   status ClientStatus @default(invited)
   coachId String
   coach Coach @relation(fields: [coachId], references: [id])
