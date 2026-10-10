@@ -1,11 +1,14 @@
 import { ConflictException, Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service.js';
 import { CreateClientDto } from './dto/create-client.dto.js';
+import { JwtService } from '@nestjs/jwt';
 
 @Injectable()
 export class ClientService {
 
-    constructor(private readonly prismaService: PrismaService){}
+    constructor(private readonly prismaService: PrismaService,
+        private readonly jwtService: JwtService
+    ){}
 
     async createClient(createClientDto: CreateClientDto, coachId: string){
         const normalizedPhone = createClientDto.phone.trim();
@@ -24,9 +27,13 @@ export class ClientService {
             name: createClientDto.name,
             phone: normalizedPhone,
             email: createClientDto.email?.trim(),
-            coachId: coachId
-
+            coachId: coachId,
         }})
+        const payload = {clientId: client.id}
+        const activationToken = await this.jwtService.signAsync(payload,{
+            expiresIn: '72h'
+        })
+         client.activationToken = activationToken
 
         return client
     }
