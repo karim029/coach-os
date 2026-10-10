@@ -38,5 +38,19 @@ export class ClientService {
     }
 
 
+    async findClientById(clientId: string, coachId: string){
+        const exist = await this.prismaService.client.findFirst({where:{
+            AND: [
+                {id: clientId},
+                {coachId: coachId}
+            ]
+        }})
 
+        if(!exist){
+            throw new NotFoundException('User not found')
+        }
+
+        const {passwordHash, ...safeClient} = exist
+        return safeClient
+    }
 }
