@@ -30,21 +30,11 @@ export class ClientService {
                 throw new ConflictException('This email is already registered to a client');
             }
         }
-        const existing = await this.prismaService.client.findFirst({
-            where: {
-                phone: normalizedPhone,
-                coachId: coachId
-            }
-        })
-
-        if(existing){
-            throw new ConflictException('Client already exists')
-        }
-
+        
         const client = await this.prismaService.client.create({data: {
             name: createClientDto.name,
             phone: normalizedPhone,
-            email: createClientDto.email?.trim(),
+            email: normalizedEmail,
             coachId: coachId,
         }})
         const payload = {clientId: client.id}
@@ -133,14 +123,15 @@ export class ClientService {
         }
         const hashedPassword = await bcrypt.hash(activateClientDto.password,this.saltRounds)
         
-        if(!client.email){
-            client.email = activateClientDto.email
+        if(!client.email && !activateClientDto.email){
+            throw new BadRequestException('Email is required to activate your account')
         }
+        const finalEmail = client.email ?? activateClientDto.email.trim().toLowerCase()
       
         const {passwordHash, ...safeClient} = await this.prismaService.client.update({
             where: {id: clientId},
             data: {
-                email: client.email,
+                email: finalEmail,
                 status: 'active',
                 passwordHash: hashedPassword,
                 activationToken: null
