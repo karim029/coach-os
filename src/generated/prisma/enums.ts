@@ -11,7 +11,8 @@
 
 export const ClientStatus = {
   invited: 'invited',
-  active: 'active'
+  active: 'active',
+  archived: 'archived'
 } as const
 
 export type ClientStatus = (typeof ClientStatus)[keyof typeof ClientStatus]
