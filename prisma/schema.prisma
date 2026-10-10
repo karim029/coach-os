@@ -17,6 +17,7 @@ datasource db {
 enum ClientStatus {
   invited
   active
+  archived
 }
 
 enum SubscriptionStatus {

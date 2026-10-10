@@ -32,7 +32,7 @@ export class ClientService {
     }
 
     async findAllClientsForCoach(coachId: string){
-        const clientsData = await this.prismaService.client.findMany({where: {coachId: coachId}})
+        const clientsData = await this.prismaService.client.findMany({where: {coachId: coachId, status: {not: 'archived'}}})
         const safeClients = clientsData.map(({passwordHash,...rest})=> rest)
         return safeClients
     }
@@ -52,5 +52,23 @@ export class ClientService {
 
         const {passwordHash, ...safeClient} = exist
         return safeClient
+    }
+
+    async deleteClient(clientId: string, coachId: string){
+
+        const result = await this.prismaService.client.updateMany({
+            where: {id: clientId,coachId: coachId},
+            data: {status: 'archived'}
+        })
+
+        if(result.count === 0){
+            throw new NotFoundException('Client not found')
+        }
+
+        const archivedClient = await this.prismaService.client.findUnique({where: {id: clientId}})
+
+        const {passwordHash, ...safeClient} = archivedClient!
+        return safeClient
+
     }
 }
