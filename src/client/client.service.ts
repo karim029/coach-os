@@ -11,7 +11,22 @@ export class ClientService {
     ){}
 
     async createClient(createClientDto: CreateClientDto, coachId: string){
-        const normalizedPhone = createClientDto.phone.trim();
+        const normalizedPhone = createClientDto.phone.trim()
+        const normalizedEmail = createClientDto.email?.trim().toLowerCase();
+        const phoneConflict = await this.prismaService.client.findFirst({
+            where: { phone: normalizedPhone, coachId: coachId }
+        });
+        if (phoneConflict) {
+        throw new ConflictException('A client with this phone number already exists for you');
+        }
+        if (normalizedEmail) {
+            const emailConflict = await this.prismaService.client.findFirst({
+                where: { email: normalizedEmail }
+            });
+            if (emailConflict) {
+                throw new ConflictException('This email is already registered to a client');
+            }
+        }
         const existing = await this.prismaService.client.findFirst({
             where: {
                 phone: normalizedPhone,
