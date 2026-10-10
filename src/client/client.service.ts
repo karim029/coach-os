@@ -1,4 +1,4 @@
-import { ConflictException, Injectable } from '@nestjs/common';
+import { ConflictException, Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service.js';
 import { CreateClientDto } from './dto/create-client.dto.js';
 
@@ -29,6 +29,12 @@ export class ClientService {
         }})
 
         return client
+    }
+
+    async findAllClientsForCoach(coachId: string){
+        const clientsData = await this.prismaService.client.findMany({where: {coachId: coachId}})
+        const safeClients = clientsData.map(({passwordHash,...rest})=> rest)
+        return safeClients
     }
 
 
