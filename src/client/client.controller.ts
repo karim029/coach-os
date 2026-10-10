@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post, Req, UnauthorizedException, UseGuards } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Req, UnauthorizedException, UseGuards } from '@nestjs/common';
 import { ClientService } from './client.service.js';
 import { CreateClientDto } from './dto/create-client.dto.js';
 import { JwtAuthGuard } from '../auth/jwt-auth/jwt-auth.guard.js';
@@ -35,5 +35,13 @@ export class ClientController {
         return this.clientService.findClientById(id, req.user.id)
     }
 
+    @Delete(':id')
+    @UseGuards(JwtAuthGuard)
+    async deleteClient(@Req() req: Request, @Param('id') id: string){
+        if(!req.user){
+            throw new UnauthorizedException()
+        }
+        return this.clientService.deleteClient(id, req.user.id)
+    }
 
 }
