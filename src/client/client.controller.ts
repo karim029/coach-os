@@ -3,6 +3,7 @@ import { ClientService } from './client.service.js';
 import { CreateClientDto } from './dto/create-client.dto.js';
 import { JwtAuthGuard } from '../auth/jwt-auth/jwt-auth.guard.js';
 import type { Request } from 'express'
+import { ActivateClientDto } from './dto/activate-client.dto.js';
 @Controller('client')
 export class ClientController {
     constructor(private readonly clientService: ClientService){}
@@ -42,6 +43,11 @@ export class ClientController {
             throw new UnauthorizedException()
         }
         return this.clientService.deleteClient(id, req.user.id)
+    }
+
+    @Post('activate/:token')
+    async activateClient(@Param('token') token: string, @Body() activateclientDto: ActivateClientDto){
+        return this.clientService.activateClient(token, activateclientDto)
     }
 
 }

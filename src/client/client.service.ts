@@ -1,10 +1,13 @@
-import { ConflictException, Injectable, NotFoundException } from '@nestjs/common';
+import { BadRequestException, ConflictException, Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service.js';
 import { CreateClientDto } from './dto/create-client.dto.js';
 import { JwtService } from '@nestjs/jwt';
+import { ActivateClientDto } from './dto/activate-client.dto.js';
+import bcrypt from 'bcryptjs';
 
 @Injectable()
 export class ClientService {
+    private readonly saltRounds = 10
 
     constructor(private readonly prismaService: PrismaService,
         private readonly jwtService: JwtService
@@ -48,6 +51,13 @@ export class ClientService {
         const activationToken = await this.jwtService.signAsync(payload,{
             expiresIn: '72h'
         })
+        await this.prismaService.client.update({where:{
+            id: client.id,
+            
+        },data: {
+            activationToken: activationToken
+        }
+    })
          client.activationToken = activationToken
 
         return client
@@ -76,6 +86,12 @@ export class ClientService {
         return safeClient
     }
 
+    async findClientByEmail(email: string){
+        return await this.prismaService.client.findUnique({
+            where: {email: email}
+        })
+    }
+
     async deleteClient(clientId: string, coachId: string){
 
         const result = await this.prismaService.client.updateMany({
@@ -90,6 +106,46 @@ export class ClientService {
         const archivedClient = await this.prismaService.client.findUnique({where: {id: clientId}})
 
         const {passwordHash, ...safeClient} = archivedClient!
+        return safeClient
+
+    }
+
+
+    async activateClient(activationToken: string, activateClientDto: ActivateClientDto){
+        let payload
+        try {
+            payload = await this.jwtService.verifyAsync(activationToken)
+        } catch (error: any) {
+            if(error.name === 'TokenExpiredError'){
+                throw new UnauthorizedException('Activation link has expired. Please request a new one')
+            }
+            throw new UnauthorizedException(`Invalid activation token. error: ${error.name}`)
+        }
+        const {clientId} = payload
+        const client = await this.prismaService.client.findUnique({where: {
+            id: clientId
+        }})
+        if(!client){
+            throw new BadRequestException('Client not found')
+        }
+        if(client.status !== 'invited'){
+            throw new BadRequestException('Client already activated')
+        }
+        const hashedPassword = await bcrypt.hash(activateClientDto.password,this.saltRounds)
+        
+        if(!client.email){
+            client.email = activateClientDto.email
+        }
+      
+        const {passwordHash, ...safeClient} = await this.prismaService.client.update({
+            where: {id: clientId},
+            data: {
+                email: client.email,
+                status: 'active',
+                passwordHash: hashedPassword,
+                activationToken: null
+            }
+        })
         return safeClient
 
     }

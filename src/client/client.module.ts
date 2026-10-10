@@ -6,6 +6,7 @@ import { JwtConfigModule } from '../jwt/jwt-config.module.js';
 @Module({
   controllers: [ClientController],
   providers: [ClientService],
-  imports: [JwtConfigModule]
+  imports: [JwtConfigModule],
+  exports: [ClientService]
 })
 export class ClientModule {}

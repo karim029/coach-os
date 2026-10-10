@@ -6,14 +6,14 @@ import * as bcrypt from 'bcryptjs'
 export class CoachService {
     private readonly logger = new Logger(CoachService.name)
     private readonly saltRounds = 10
-    constructor(private readonly prisma: PrismaService){}
+    constructor(private readonly prismaService: PrismaService){}
 
     async registerCoach(registerCoachDto: RegisterCoachDto){
 
        const normalizedEmail = registerCoachDto.email.toLowerCase().trim();
        const normalizedPhone = registerCoachDto.phone.trim();
 
-       const existing = await this.prisma.coach.findFirst({
+       const existing = await this.prismaService.coach.findFirst({
         where: { OR: [{ email: normalizedEmail }, { phone: normalizedPhone }] }
         })  
         
@@ -26,7 +26,7 @@ export class CoachService {
 
         const hashedPassword = await bcrypt.hash(registerCoachDto.password, this.saltRounds)
 
-        const newCoach = await this.prisma.coach.create({data:{
+        const newCoach = await this.prismaService.coach.create({data:{
             name: registerCoachDto.name,
             email: normalizedEmail,
             passwordHash: hashedPassword,
@@ -38,7 +38,7 @@ export class CoachService {
     }
 
     async findCoachByEmail(email: string){
-        return this.prisma.coach.findUnique({where: {email: email.trim().toLowerCase()}})
+        return await this.prismaService.coach.findUnique({where: {email: email.trim().toLowerCase()}})
     }
 
 

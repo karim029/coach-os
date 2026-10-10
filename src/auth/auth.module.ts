@@ -6,12 +6,14 @@ import {JwtModule} from '@nestjs/jwt'
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { JwtStrategy } from './strategies/jwt.strategy.js';
 import { JwtConfigModule } from '../jwt/jwt-config.module.js';
+import { ClientModule } from '../client/client.module.js';
 @Module({
   providers: [AuthService, JwtStrategy],
   controllers: [AuthController],
   imports: [
     CoachModule,
     JwtConfigModule,
+    ClientModule,
   ],
   exports: [AuthService]
 })
