@@ -7,9 +7,10 @@ import { CoachModule } from './coach/coach.module.js';
 import { AuthModule } from './auth/auth.module.js';
 import { ClientModule } from './client/client.module.js';
 import { PackageModule } from './package/package.module.js';
+import { SubscriptionModule } from './subscription/subscription.module.js';
 
 @Module({
-  imports: [PrismaModule, ConfigModule.forRoot({isGlobal: true}), CoachModule, AuthModule, ClientModule, PackageModule],
+  imports: [PrismaModule, ConfigModule.forRoot({isGlobal: true}), CoachModule, AuthModule, ClientModule, PackageModule, SubscriptionModule],
   controllers: [AppController],
   providers: [AppService],
 })
