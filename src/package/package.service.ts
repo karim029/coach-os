@@ -1,4 +1,4 @@
-import { ConflictException, Injectable } from '@nestjs/common';
+import { ConflictException, Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service.js';
 import { CreatePackageDto } from './dto/create-package.dto.js';
 
@@ -8,10 +8,10 @@ export class PackageService {
 
     async createPackage(coachId: string, createPackageDto: CreatePackageDto){
 
-        createPackageDto.name.trim().toLowerCase()
+        const normalizedName = createPackageDto.name.trim().toLowerCase()
         try {
             const pkg = await this.prismaService.package.create({
-                data: {...createPackageDto, coachId: coachId}
+                data: {...createPackageDto,name: normalizedName, coachId: coachId}
             })
             return pkg
         } catch (error: any) {
@@ -22,4 +22,49 @@ export class PackageService {
         }
 
     }
+
+    async findAllPackagesForCoach(coachId: string){
+
+        const packages = await this.prismaService.package.findMany({where: {
+            coachId: coachId, isActive: true
+        }})
+
+        return packages
+    }
+    async findPackageById(packageId: string, coachId: string){
+        try{
+
+            const pkg = await this.prismaService.package.findFirstOrThrow({where: {
+                id:packageId, coachId: coachId, isActive: true
+            }})
+            return pkg
+        }catch(error: any){
+            if(error.code === 'P2025'){
+                throw new NotFoundException('No package found')
+            }
+            throw error
+        }
+    }
+
+    async deletePackage(packageId: string, coachId: string){
+        const result = await this.prismaService.package.updateMany({
+            where: {
+                id: packageId, coachId: coachId
+            },
+            data: {
+                isActive: false
+            }
+        })
+        if(result.count === 0){
+            throw new NotFoundException('Package not found')
+        }
+
+        const archivedPackage = await this.prismaService.package.findUnique({
+            where: {
+                id: packageId
+            }
+        })
+        return archivedPackage
+    }
 }
+
