@@ -272,6 +272,7 @@ export type PackageOrderByWithRelationInput = {
 
 export type PackageWhereUniqueInput = Prisma.AtLeast<{
   id?: string
+  coachId_name?: Prisma.PackageCoachIdNameCompoundUniqueInput
   AND?: Prisma.PackageWhereInput | Prisma.PackageWhereInput[]
   OR?: Prisma.PackageWhereInput[]
   NOT?: Prisma.PackageWhereInput | Prisma.PackageWhereInput[]
@@ -285,7 +286,7 @@ export type PackageWhereUniqueInput = Prisma.AtLeast<{
   updatedAt?: Prisma.DateTimeFilter<"Package"> | Date | string
   coach?: Prisma.XOR<Prisma.CoachScalarRelationFilter, Prisma.CoachWhereInput>
   subscriptions?: Prisma.SubscriptionListRelationFilter
-}, "id">
+}, "id" | "coachId_name">
 
 export type PackageOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
@@ -325,7 +326,7 @@ export type PackageCreateInput = {
   durationDays: number
   price: runtime.Decimal | runtime.DecimalJsLike | number | string
   description: string
-  isActive: boolean
+  isActive?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   coach: Prisma.CoachCreateNestedOneWithoutPackagesInput
@@ -339,7 +340,7 @@ export type PackageUncheckedCreateInput = {
   durationDays: number
   price: runtime.Decimal | runtime.DecimalJsLike | number | string
   description: string
-  isActive: boolean
+  isActive?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   subscriptions?: Prisma.SubscriptionUncheckedCreateNestedManyWithoutPackageInput
@@ -378,7 +379,7 @@ export type PackageCreateManyInput = {
   durationDays: number
   price: runtime.Decimal | runtime.DecimalJsLike | number | string
   description: string
-  isActive: boolean
+  isActive?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -414,6 +415,11 @@ export type PackageListRelationFilter = {
 
 export type PackageOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
+}
+
+export type PackageCoachIdNameCompoundUniqueInput = {
+  coachId: string
+  name: string
 }
 
 export type PackageCountOrderByAggregateInput = {
@@ -549,7 +555,7 @@ export type PackageCreateWithoutCoachInput = {
   durationDays: number
   price: runtime.Decimal | runtime.DecimalJsLike | number | string
   description: string
-  isActive: boolean
+  isActive?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   subscriptions?: Prisma.SubscriptionCreateNestedManyWithoutPackageInput
@@ -561,7 +567,7 @@ export type PackageUncheckedCreateWithoutCoachInput = {
   durationDays: number
   price: runtime.Decimal | runtime.DecimalJsLike | number | string
   description: string
-  isActive: boolean
+  isActive?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   subscriptions?: Prisma.SubscriptionUncheckedCreateNestedManyWithoutPackageInput
@@ -614,7 +620,7 @@ export type PackageCreateWithoutSubscriptionsInput = {
   durationDays: number
   price: runtime.Decimal | runtime.DecimalJsLike | number | string
   description: string
-  isActive: boolean
+  isActive?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   coach: Prisma.CoachCreateNestedOneWithoutPackagesInput
@@ -627,7 +633,7 @@ export type PackageUncheckedCreateWithoutSubscriptionsInput = {
   durationDays: number
   price: runtime.Decimal | runtime.DecimalJsLike | number | string
   description: string
-  isActive: boolean
+  isActive?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -678,7 +684,7 @@ export type PackageCreateManyCoachInput = {
   durationDays: number
   price: runtime.Decimal | runtime.DecimalJsLike | number | string
   description: string
-  isActive: boolean
+  isActive?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
 }
