@@ -6,9 +6,10 @@ import { ConfigModule } from '@nestjs/config';
 import { CoachModule } from './coach/coach.module.js';
 import { AuthModule } from './auth/auth.module.js';
 import { ClientModule } from './client/client.module.js';
+import { PackageModule } from './package/package.module.js';
 
 @Module({
-  imports: [PrismaModule, ConfigModule.forRoot({isGlobal: true}), CoachModule, AuthModule, ClientModule],
+  imports: [PrismaModule, ConfigModule.forRoot({isGlobal: true}), CoachModule, AuthModule, ClientModule, PackageModule],
   controllers: [AppController],
   providers: [AppService],
 })
