@@ -30,11 +30,11 @@ export type ClientMinAggregateOutputType = {
   phone: string | null
   email: string | null
   passwordHash: string | null
-  activationToken: string | null
   status: $Enums.ClientStatus | null
   coachId: string | null
   createdAt: Date | null
   updatedAt: Date | null
+  activationToken: string | null
 }
 
 export type ClientMaxAggregateOutputType = {
@@ -43,11 +43,11 @@ export type ClientMaxAggregateOutputType = {
   phone: string | null
   email: string | null
   passwordHash: string | null
-  activationToken: string | null
   status: $Enums.ClientStatus | null
   coachId: string | null
   createdAt: Date | null
   updatedAt: Date | null
+  activationToken: string | null
 }
 
 export type ClientCountAggregateOutputType = {
@@ -56,11 +56,11 @@ export type ClientCountAggregateOutputType = {
   phone: number
   email: number
   passwordHash: number
-  activationToken: number
   status: number
   coachId: number
   createdAt: number
   updatedAt: number
+  activationToken: number
   _all: number
 }
 
@@ -71,11 +71,11 @@ export type ClientMinAggregateInputType = {
   phone?: true
   email?: true
   passwordHash?: true
-  activationToken?: true
   status?: true
   coachId?: true
   createdAt?: true
   updatedAt?: true
+  activationToken?: true
 }
 
 export type ClientMaxAggregateInputType = {
@@ -84,11 +84,11 @@ export type ClientMaxAggregateInputType = {
   phone?: true
   email?: true
   passwordHash?: true
-  activationToken?: true
   status?: true
   coachId?: true
   createdAt?: true
   updatedAt?: true
+  activationToken?: true
 }
 
 export type ClientCountAggregateInputType = {
@@ -97,11 +97,11 @@ export type ClientCountAggregateInputType = {
   phone?: true
   email?: true
   passwordHash?: true
-  activationToken?: true
   status?: true
   coachId?: true
   createdAt?: true
   updatedAt?: true
+  activationToken?: true
   _all?: true
 }
 
@@ -183,11 +183,11 @@ export type ClientGroupByOutputType = {
   phone: string
   email: string | null
   passwordHash: string | null
-  activationToken: string | null
   status: $Enums.ClientStatus
   coachId: string
   createdAt: Date
   updatedAt: Date
+  activationToken: string | null
   _count: ClientCountAggregateOutputType | null
   _min: ClientMinAggregateOutputType | null
   _max: ClientMaxAggregateOutputType | null
@@ -217,11 +217,11 @@ export type ClientWhereInput = {
   phone?: Prisma.StringFilter<"Client"> | string
   email?: Prisma.StringNullableFilter<"Client"> | string | null
   passwordHash?: Prisma.StringNullableFilter<"Client"> | string | null
-  activationToken?: Prisma.StringNullableFilter<"Client"> | string | null
   status?: Prisma.EnumClientStatusFilter<"Client"> | $Enums.ClientStatus
   coachId?: Prisma.StringFilter<"Client"> | string
   createdAt?: Prisma.DateTimeFilter<"Client"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Client"> | Date | string
+  activationToken?: Prisma.StringNullableFilter<"Client"> | string | null
   coach?: Prisma.XOR<Prisma.CoachScalarRelationFilter, Prisma.CoachWhereInput>
   subscriptions?: Prisma.SubscriptionListRelationFilter
 }
@@ -232,11 +232,11 @@ export type ClientOrderByWithRelationInput = {
   phone?: Prisma.SortOrder
   email?: Prisma.SortOrderInput | Prisma.SortOrder
   passwordHash?: Prisma.SortOrderInput | Prisma.SortOrder
-  activationToken?: Prisma.SortOrderInput | Prisma.SortOrder
   status?: Prisma.SortOrder
   coachId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  activationToken?: Prisma.SortOrderInput | Prisma.SortOrder
   coach?: Prisma.CoachOrderByWithRelationInput
   subscriptions?: Prisma.SubscriptionOrderByRelationAggregateInput
 }
@@ -265,11 +265,11 @@ export type ClientOrderByWithAggregationInput = {
   phone?: Prisma.SortOrder
   email?: Prisma.SortOrderInput | Prisma.SortOrder
   passwordHash?: Prisma.SortOrderInput | Prisma.SortOrder
-  activationToken?: Prisma.SortOrderInput | Prisma.SortOrder
   status?: Prisma.SortOrder
   coachId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  activationToken?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.ClientCountOrderByAggregateInput
   _max?: Prisma.ClientMaxOrderByAggregateInput
   _min?: Prisma.ClientMinOrderByAggregateInput
@@ -284,11 +284,11 @@ export type ClientScalarWhereWithAggregatesInput = {
   phone?: Prisma.StringWithAggregatesFilter<"Client"> | string
   email?: Prisma.StringNullableWithAggregatesFilter<"Client"> | string | null
   passwordHash?: Prisma.StringNullableWithAggregatesFilter<"Client"> | string | null
-  activationToken?: Prisma.StringNullableWithAggregatesFilter<"Client"> | string | null
   status?: Prisma.EnumClientStatusWithAggregatesFilter<"Client"> | $Enums.ClientStatus
   coachId?: Prisma.StringWithAggregatesFilter<"Client"> | string
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Client"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Client"> | Date | string
+  activationToken?: Prisma.StringNullableWithAggregatesFilter<"Client"> | string | null
 }
 
 export type ClientCreateInput = {
@@ -297,10 +297,10 @@ export type ClientCreateInput = {
   phone: string
   email?: string | null
   passwordHash?: string | null
-  activationToken?: string | null
   status?: $Enums.ClientStatus
   createdAt?: Date | string
   updatedAt?: Date | string
+  activationToken?: string | null
   coach: Prisma.CoachCreateNestedOneWithoutClientsInput
   subscriptions?: Prisma.SubscriptionCreateNestedManyWithoutClientInput
 }
@@ -311,11 +311,11 @@ export type ClientUncheckedCreateInput = {
   phone: string
   email?: string | null
   passwordHash?: string | null
-  activationToken?: string | null
   status?: $Enums.ClientStatus
   coachId: string
   createdAt?: Date | string
   updatedAt?: Date | string
+  activationToken?: string | null
   subscriptions?: Prisma.SubscriptionUncheckedCreateNestedManyWithoutClientInput
 }
 
@@ -325,10 +325,10 @@ export type ClientUpdateInput = {
   phone?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  activationToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumClientStatusFieldUpdateOperationsInput | $Enums.ClientStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  activationToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   coach?: Prisma.CoachUpdateOneRequiredWithoutClientsNestedInput
   subscriptions?: Prisma.SubscriptionUpdateManyWithoutClientNestedInput
 }
@@ -339,11 +339,11 @@ export type ClientUncheckedUpdateInput = {
   phone?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  activationToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumClientStatusFieldUpdateOperationsInput | $Enums.ClientStatus
   coachId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  activationToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   subscriptions?: Prisma.SubscriptionUncheckedUpdateManyWithoutClientNestedInput
 }
 
@@ -353,11 +353,11 @@ export type ClientCreateManyInput = {
   phone: string
   email?: string | null
   passwordHash?: string | null
-  activationToken?: string | null
   status?: $Enums.ClientStatus
   coachId: string
   createdAt?: Date | string
   updatedAt?: Date | string
+  activationToken?: string | null
 }
 
 export type ClientUpdateManyMutationInput = {
@@ -366,10 +366,10 @@ export type ClientUpdateManyMutationInput = {
   phone?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  activationToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumClientStatusFieldUpdateOperationsInput | $Enums.ClientStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  activationToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type ClientUncheckedUpdateManyInput = {
@@ -378,11 +378,11 @@ export type ClientUncheckedUpdateManyInput = {
   phone?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  activationToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumClientStatusFieldUpdateOperationsInput | $Enums.ClientStatus
   coachId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  activationToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type ClientListRelationFilter = {
@@ -401,11 +401,11 @@ export type ClientCountOrderByAggregateInput = {
   phone?: Prisma.SortOrder
   email?: Prisma.SortOrder
   passwordHash?: Prisma.SortOrder
-  activationToken?: Prisma.SortOrder
   status?: Prisma.SortOrder
   coachId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  activationToken?: Prisma.SortOrder
 }
 
 export type ClientMaxOrderByAggregateInput = {
@@ -414,11 +414,11 @@ export type ClientMaxOrderByAggregateInput = {
   phone?: Prisma.SortOrder
   email?: Prisma.SortOrder
   passwordHash?: Prisma.SortOrder
-  activationToken?: Prisma.SortOrder
   status?: Prisma.SortOrder
   coachId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  activationToken?: Prisma.SortOrder
 }
 
 export type ClientMinOrderByAggregateInput = {
@@ -427,11 +427,11 @@ export type ClientMinOrderByAggregateInput = {
   phone?: Prisma.SortOrder
   email?: Prisma.SortOrder
   passwordHash?: Prisma.SortOrder
-  activationToken?: Prisma.SortOrder
   status?: Prisma.SortOrder
   coachId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  activationToken?: Prisma.SortOrder
 }
 
 export type ClientScalarRelationFilter = {
@@ -505,10 +505,10 @@ export type ClientCreateWithoutCoachInput = {
   phone: string
   email?: string | null
   passwordHash?: string | null
-  activationToken?: string | null
   status?: $Enums.ClientStatus
   createdAt?: Date | string
   updatedAt?: Date | string
+  activationToken?: string | null
   subscriptions?: Prisma.SubscriptionCreateNestedManyWithoutClientInput
 }
 
@@ -518,10 +518,10 @@ export type ClientUncheckedCreateWithoutCoachInput = {
   phone: string
   email?: string | null
   passwordHash?: string | null
-  activationToken?: string | null
   status?: $Enums.ClientStatus
   createdAt?: Date | string
   updatedAt?: Date | string
+  activationToken?: string | null
   subscriptions?: Prisma.SubscriptionUncheckedCreateNestedManyWithoutClientInput
 }
 
@@ -560,11 +560,11 @@ export type ClientScalarWhereInput = {
   phone?: Prisma.StringFilter<"Client"> | string
   email?: Prisma.StringNullableFilter<"Client"> | string | null
   passwordHash?: Prisma.StringNullableFilter<"Client"> | string | null
-  activationToken?: Prisma.StringNullableFilter<"Client"> | string | null
   status?: Prisma.EnumClientStatusFilter<"Client"> | $Enums.ClientStatus
   coachId?: Prisma.StringFilter<"Client"> | string
   createdAt?: Prisma.DateTimeFilter<"Client"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Client"> | Date | string
+  activationToken?: Prisma.StringNullableFilter<"Client"> | string | null
 }
 
 export type ClientCreateWithoutSubscriptionsInput = {
@@ -573,10 +573,10 @@ export type ClientCreateWithoutSubscriptionsInput = {
   phone: string
   email?: string | null
   passwordHash?: string | null
-  activationToken?: string | null
   status?: $Enums.ClientStatus
   createdAt?: Date | string
   updatedAt?: Date | string
+  activationToken?: string | null
   coach: Prisma.CoachCreateNestedOneWithoutClientsInput
 }
 
@@ -586,11 +586,11 @@ export type ClientUncheckedCreateWithoutSubscriptionsInput = {
   phone: string
   email?: string | null
   passwordHash?: string | null
-  activationToken?: string | null
   status?: $Enums.ClientStatus
   coachId: string
   createdAt?: Date | string
   updatedAt?: Date | string
+  activationToken?: string | null
 }
 
 export type ClientCreateOrConnectWithoutSubscriptionsInput = {
@@ -615,10 +615,10 @@ export type ClientUpdateWithoutSubscriptionsInput = {
   phone?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  activationToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumClientStatusFieldUpdateOperationsInput | $Enums.ClientStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  activationToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   coach?: Prisma.CoachUpdateOneRequiredWithoutClientsNestedInput
 }
 
@@ -628,11 +628,11 @@ export type ClientUncheckedUpdateWithoutSubscriptionsInput = {
   phone?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  activationToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumClientStatusFieldUpdateOperationsInput | $Enums.ClientStatus
   coachId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  activationToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type ClientCreateManyCoachInput = {
@@ -641,10 +641,10 @@ export type ClientCreateManyCoachInput = {
   phone: string
   email?: string | null
   passwordHash?: string | null
-  activationToken?: string | null
   status?: $Enums.ClientStatus
   createdAt?: Date | string
   updatedAt?: Date | string
+  activationToken?: string | null
 }
 
 export type ClientUpdateWithoutCoachInput = {
@@ -653,10 +653,10 @@ export type ClientUpdateWithoutCoachInput = {
   phone?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  activationToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumClientStatusFieldUpdateOperationsInput | $Enums.ClientStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  activationToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   subscriptions?: Prisma.SubscriptionUpdateManyWithoutClientNestedInput
 }
 
@@ -666,10 +666,10 @@ export type ClientUncheckedUpdateWithoutCoachInput = {
   phone?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  activationToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumClientStatusFieldUpdateOperationsInput | $Enums.ClientStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  activationToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   subscriptions?: Prisma.SubscriptionUncheckedUpdateManyWithoutClientNestedInput
 }
 
@@ -679,10 +679,10 @@ export type ClientUncheckedUpdateManyWithoutCoachInput = {
   phone?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  activationToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumClientStatusFieldUpdateOperationsInput | $Enums.ClientStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  activationToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 
@@ -722,11 +722,11 @@ export type ClientSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   phone?: boolean
   email?: boolean
   passwordHash?: boolean
-  activationToken?: boolean
   status?: boolean
   coachId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  activationToken?: boolean
   coach?: boolean | Prisma.CoachDefaultArgs<ExtArgs>
   subscriptions?: boolean | Prisma.Client$subscriptionsArgs<ExtArgs>
   _count?: boolean | Prisma.ClientCountOutputTypeDefaultArgs<ExtArgs>
@@ -738,11 +738,11 @@ export type ClientSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extens
   phone?: boolean
   email?: boolean
   passwordHash?: boolean
-  activationToken?: boolean
   status?: boolean
   coachId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  activationToken?: boolean
   coach?: boolean | Prisma.CoachDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["client"]>
 
@@ -752,11 +752,11 @@ export type ClientSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extens
   phone?: boolean
   email?: boolean
   passwordHash?: boolean
-  activationToken?: boolean
   status?: boolean
   coachId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  activationToken?: boolean
   coach?: boolean | Prisma.CoachDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["client"]>
 
@@ -766,14 +766,14 @@ export type ClientSelectScalar = {
   phone?: boolean
   email?: boolean
   passwordHash?: boolean
-  activationToken?: boolean
   status?: boolean
   coachId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  activationToken?: boolean
 }
 
-export type ClientOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "phone" | "email" | "passwordHash" | "activationToken" | "status" | "coachId" | "createdAt" | "updatedAt", ExtArgs["result"]["client"]>
+export type ClientOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "phone" | "email" | "passwordHash" | "status" | "coachId" | "createdAt" | "updatedAt" | "activationToken", ExtArgs["result"]["client"]>
 export type ClientInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   coach?: boolean | Prisma.CoachDefaultArgs<ExtArgs>
   subscriptions?: boolean | Prisma.Client$subscriptionsArgs<ExtArgs>
@@ -798,11 +798,11 @@ export type $ClientPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs
     phone: string
     email: string | null
     passwordHash: string | null
-    activationToken: string | null
     status: $Enums.ClientStatus
     coachId: string
     createdAt: Date
     updatedAt: Date
+    activationToken: string | null
   }, ExtArgs["result"]["client"]>
   composites: {}
 }
@@ -1233,11 +1233,11 @@ export interface ClientFieldRefs {
   readonly phone: Prisma.FieldRef<"Client", 'String'>
   readonly email: Prisma.FieldRef<"Client", 'String'>
   readonly passwordHash: Prisma.FieldRef<"Client", 'String'>
-  readonly activationToken: Prisma.FieldRef<"Client", 'String'>
   readonly status: Prisma.FieldRef<"Client", 'ClientStatus'>
   readonly coachId: Prisma.FieldRef<"Client", 'String'>
   readonly createdAt: Prisma.FieldRef<"Client", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Client", 'DateTime'>
+  readonly activationToken: Prisma.FieldRef<"Client", 'String'>
 }
     
 

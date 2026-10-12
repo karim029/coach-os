@@ -90,11 +90,11 @@ export const ClientScalarFieldEnum = {
   phone: 'phone',
   email: 'email',
   passwordHash: 'passwordHash',
-  activationToken: 'activationToken',
   status: 'status',
   coachId: 'coachId',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  activationToken: 'activationToken'
 } as const
 
 export type ClientScalarFieldEnum = (typeof ClientScalarFieldEnum)[keyof typeof ClientScalarFieldEnum]
