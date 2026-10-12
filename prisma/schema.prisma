@@ -73,8 +73,6 @@ model Package {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-
-  @@unique([coachId, name])
   @@index([coachId])
 
 }

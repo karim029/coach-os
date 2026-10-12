@@ -272,7 +272,6 @@ export type PackageOrderByWithRelationInput = {
 
 export type PackageWhereUniqueInput = Prisma.AtLeast<{
   id?: string
-  coachId_name?: Prisma.PackageCoachIdNameCompoundUniqueInput
   AND?: Prisma.PackageWhereInput | Prisma.PackageWhereInput[]
   OR?: Prisma.PackageWhereInput[]
   NOT?: Prisma.PackageWhereInput | Prisma.PackageWhereInput[]
@@ -286,7 +285,7 @@ export type PackageWhereUniqueInput = Prisma.AtLeast<{
   updatedAt?: Prisma.DateTimeFilter<"Package"> | Date | string
   coach?: Prisma.XOR<Prisma.CoachScalarRelationFilter, Prisma.CoachWhereInput>
   subscriptions?: Prisma.SubscriptionListRelationFilter
-}, "id" | "coachId_name">
+}, "id">
 
 export type PackageOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
@@ -415,11 +414,6 @@ export type PackageListRelationFilter = {
 
 export type PackageOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
-}
-
-export type PackageCoachIdNameCompoundUniqueInput = {
-  coachId: string
-  name: string
 }
 
 export type PackageCountOrderByAggregateInput = {
